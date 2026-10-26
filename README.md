@@ -1,84 +1,98 @@
 # AI-Pioneers-Internship-Machine-Learning-Internship-
 
 
-Credit Card Fraud Detection - AI Pioneers Capstone
+💳 Credit Card Fraud Detection - ML Capstone Project
 
 Author: Aquine Roshan Pais
 
-Program: AI Pioneers Machine Learning Internship (October 2026)
+Program: AI Pioneers Machine Learning Internship (4-Week Capstone)
 
-📌 Project Overview
+📑 Project Overview
 
-This repository contains the end-to-end machine learning pipeline and deployment code for a Credit Card Fraud Detection system. Built over a 4-week internship at AI Pioneers, the project tackles the challenge of identifying financial fraud within a highly imbalanced dataset of 10,000 transactions.
+This repository contains an end-to-end Machine Learning pipeline designed to detect fraudulent credit card transactions. The project tackles the real-world challenge of analyzing highly imbalanced financial data, balancing the need to maximize fraud detection while minimizing false alarms for innocent customers. The final deliverable is a production-ready Random Forest model deployed as a local Web API using Flask.
 
-The primary business objective was to maximize the detection of actual fraud while strictly minimizing false alarms that could disrupt the experience of legitimate customers.
+🚀 Weekly Milestones
 
-🚀 Weekly Breakdown
+Week 1: Data Preprocessing & EDA
 
-Week 1: Data Preprocessing
+Data Cleaning: Handled missing values and removed duplicates from a 10,000-record dataset.
 
-Cleaning & Scaling: Removed noise/duplicates and normalized financial metrics to ensure fair algorithmic evaluation.
+Feature Scaling: Normalized financial metrics (e.g., transaction amounts, trust scores) to ensure fair algorithm evaluation.
 
-Class Imbalance: Identified the extreme skew in the target variable (is_fraud), setting the stage for specialized evaluation metrics and sampling techniques.
+Imbalance Identification: Identified extreme target skewness, setting the stage for advanced modeling techniques.
 
-Week 2: Model Selection & The SMOTE Effect
+Week 2: Supervised Learning & The "Accuracy Trap"
 
-The Accuracy Trap: Both Logistic Regression and Random Forest achieved 99% accuracy because they defaulted to predicting "normal" transactions.
+Model Selection: Evaluated Logistic Regression vs. Random Forest algorithms.
 
-Model Comparison: Logistic Regression missed actual fraud cases (low recall). Random Forest demonstrated flawless precision.
+The SMOTE Effect: Applied Synthetic Minority Over-sampling Technique (SMOTE) to address class imbalance.
 
-The SMOTE Trade-off: Applied Synthetic Minority Over-sampling Technique (SMOTE). While it successfully boosted recall to 77%, it drastically reduced precision to 16%, causing an 84% false alarm rate. We selected the baseline Random Forest as the superior, production-ready model.
+Insight: Demonstrated the Precision-Recall Trade-off. While SMOTE boosted recall to 77%, it caused an 84% false alarm rate (Precision = 16%). The baseline Random Forest was chosen as the superior model for achieving a flawless 100% precision with zero false alarms.
 
 Week 3: Unsupervised Learning & Advanced Evaluation
 
-K-Means & PCA: Compressed the dataset using Principal Component Analysis (PCA) to 2 dimensions and applied K-Means clustering to discover 3 hidden behavioral customer segments.
+Dimensionality Reduction: Utilized PCA to compress data into 2D for visual mapping.
 
-Model Stability: Validated the Random Forest model using 5-Fold Cross-Validation, achieving an exceptional average stability score of 0.995.
+Clustering: Applied K-Means to discover 3 hidden behavioral customer segments without using predefined labels.
 
-ROC-AUC: Achieved a near-perfect ROC-AUC score of 0.994, confirming the model's outstanding mathematical ability to separate legitimate charges from fraud.
+Hyperparameter Tuning: Used GridSearchCV to find the optimal Random Forest parameters.
+
+Validation: Achieved an exceptional 5-Fold Cross-Validation score of 0.995 and a near-perfect ROC-AUC score of 0.994.
 
 Week 4: API Deployment
 
-Serialization: Extracted the trained Random Forest model from memory using joblib and saved it as fraud_model.pkl.
+Serialization: Exported the trained model's mathematical decision trees using joblib (fraud_model.pkl).
 
-Flask Web API: Engineered a backend web application (app.py) with a /predict endpoint that processes JSON transaction payloads and returns real-time fraud alerts.
+Web Server: Engineered a backend web application using Flask (app.py) with a /predict endpoint.
 
-🛠️ Technologies Used
+Client Testing: Developed a client-side testing script (test_api.py) using the requests library to transmit simulated JSON transaction payloads and receive real-time "Safe" or "Fraud" predictions.
 
-Python 3.x
+🛠️ Tech Stack
 
-Machine Learning: Scikit-Learn, Imbalanced-Learn (SMOTE)
+Language: Python 3
 
 Data Manipulation: Pandas, NumPy
+
+Machine Learning: Scikit-Learn, Imbalanced-Learn (SMOTE)
 
 Data Visualization: Matplotlib, Seaborn
 
 Deployment: Flask, Joblib, Requests
 
-💻 How to Run the Application Locally
+📁 Repository Structure
 
-Clone the repository:
+cleaned_credit_card_fraud_10k.csv - The preprocessed dataset.
 
-git clone https://github.com/yourusername/fraud-detection-capstone.git
-cd fraud-detection-capstone
+Week1_to_3_Notebooks.ipynb - Jupyter notebooks containing EDA, modeling, clustering, and evaluation code.
+
+fraud_model.pkl - The serialized Random Forest model.
+
+app.py - The Flask web server script.
+
+test_api.py - The client script to test API predictions.
+
+visualizations/ - Saved PNG outputs (Confusion Matrices, K-Means Clusters, ROC Curve).
+
+💻 How to Run the Project Locally
+
+1. Install Dependencies
+Ensure you have Python installed, then install the required libraries:
+
+pip install pandas scikit-learn flask requests
 
 
-Start the Flask Server:
-Open a terminal and run the main application file. Keep this terminal open.
+2. Start the Flask Server
+Run the app.py file to start the local web server. Keep this terminal open.
 
 python app.py
 
 
 You should see a message indicating the server is running on http://127.0.0.1:5000.
 
-Test the API:
-Open a second, separate terminal and run the test script to simulate an incoming transaction.
+3. Test the API
+Open a second terminal window and run the testing script to send a simulated transaction to the server:
 
 python test_api.py
 
 
-The console will print the model's real-time prediction (e.g., {'prediction': 'Warning: Fraudulent Transaction Detected!'}).
-
-📊 Visualizations
-
-Please refer to the images/ folder for high-resolution Confusion Matrices, ROC Curves, and PCA Cluster plots generated during the evaluation phases.
+The terminal will output the model's live prediction: {'prediction': 'Warning: Fraudulent Transaction Detected!'} or Safe.
